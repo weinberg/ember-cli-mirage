@@ -171,6 +171,24 @@ test('it can reference multiple properties in any order', function(assert) {
   assert.deepEqual(baz, { foo: 16, bar: 6, baz: 10 });
 });
 
+test('it can use multiple properties in an &&', function(assert) {
+  let BazFactory = Mirage.Factory.extend({
+    foo: 5,
+    bar: 6,
+    baz(i) {
+      if (this.foo && this.bar) {
+        return 5;
+      }
+      return 8;
+    }
+  });
+
+  let b = new BazFactory();
+  let baz1 = b.build(1);
+
+  assert.deepEqual(baz1, { foo: 5, bar: 6, baz: 5 });
+});
+
 test('it can reference properties on complex object', function(assert) {
   let AbcFactory = Mirage.Factory.extend({
     a(i) {

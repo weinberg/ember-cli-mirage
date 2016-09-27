@@ -108,6 +108,7 @@ function sortAttrs(attrs, sequence) {
     Object.defineProperty(obj.constructor.prototype, key, {
       get() {
         refs.push([property, key]);
+        return true;
       },
       enumerable: false,
       configurable: true
